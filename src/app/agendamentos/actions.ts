@@ -4,7 +4,9 @@
 import { db } from "@/lib/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import type { AppointmentFormValues } from "./appointment-form";
-import { notifyAppointmentToDiscord } from "@/services/discord-notifier";
+// A função de notificação do Discord foi removida temporariamente para simplificar
+// a depuração e garantir que não está causando efeitos colaterais.
+// import { notifyAppointmentToDiscord } from "@/services/discord-notifier";
 
 /**
  * Salva um novo agendamento no banco de dados Firestore.
@@ -24,10 +26,12 @@ export async function scheduleAppointment(
       status: "pending", // 'pending', 'confirmed', 'cancelled'
     };
 
-    await addDoc(collection(db, "appointments"), appointmentData);
+    const docRef = await addDoc(collection(db, "appointments"), appointmentData);
+    console.log("Appointment created with ID: ", docRef.id);
+
 
     // Notifica o Discord (opcional, pode ser configurado no futuro)
-    await notifyAppointmentToDiscord(appointmentData, userName);
+    // await notifyAppointmentToDiscord(appointmentData, userName);
 
     return { success: true, error: null };
   } catch (err) {
