@@ -1,0 +1,10 @@
+
+{
+  "hosting": {
+    "site": "altacentromedicovalley",
+    "source": ".",
+    "frameworksBackend": {
+      "region": "us-central1"
+    }
+  }
+}
